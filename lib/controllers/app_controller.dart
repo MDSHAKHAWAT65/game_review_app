@@ -44,8 +44,12 @@ class AppController extends GetxController {
     update();
   }
 
-  void ratingSubmit(gameId) async {
+  void ratingSubmit(gameId, context) async {
     if (!ratingFormKey.currentState!.validate()) {
+      return;
+    }
+    if (rating == null || rating!.isEmpty) {
+      Get.snackbar('Validation Error', 'Rating field is required', snackPosition: SnackPosition.BOTTOM, backgroundColor: colorDanger, colorText: colorWhite);
       return;
     }
     if (isLoading) {
@@ -66,6 +70,7 @@ class AppController extends GetxController {
 
       Get.snackbar(json['message'], errors, backgroundColor: colorDanger, colorText: Colors.white);
       EasyLoading.dismiss();
+      isLoading == false;
       return;
     }
 
@@ -77,5 +82,6 @@ class AppController extends GetxController {
 
     EasyLoading.showSuccess(json['meta']['message']);
     EasyLoading.dismiss();
+    isLoading = false;
   }
 }

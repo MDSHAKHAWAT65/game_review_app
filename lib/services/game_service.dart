@@ -20,10 +20,7 @@ class GameService {
     Map<String, String> header = Config.header;
 
     String token = getStringAsync('access_token');
-    header['Authorization'] = "Bearer $token";
-
-    print(formData);
-    
+    header['Authorization'] = "Bearer $token";    
     return await http.post(url, body: formData, headers: header);
   }
 

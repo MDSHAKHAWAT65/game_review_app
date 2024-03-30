@@ -95,6 +95,8 @@ class GameScreen extends StatelessWidget {
                             ratingDropdown(size),
                             SizedBox(height: size.height * 0.01),
                             commentTextField(size),
+                            const SizedBox(height: 10),
+                            submitButton(size, context)
                           ],
                         ),
                       ),
@@ -105,7 +107,7 @@ class GameScreen extends StatelessWidget {
             ),
 
             // rating
-            const SizedBox(height: 8),
+            const SizedBox(height: 15),
             Text(
               'All Ratings',
               style: GoogleFonts.inter(
@@ -146,6 +148,12 @@ class GameScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 20),
+              game.ratings!.isEmpty ? const Center(child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Empty, No Ratings yet'),
+              ),): const SizedBox(),
           ],
         ),
       ),
@@ -189,6 +197,7 @@ class GameScreen extends StatelessWidget {
               ctr.rating = value;
               ctr.update();
             },
+            
             buttonStyleData: const ButtonStyleData(
               padding: EdgeInsets.symmetric(horizontal: 16),
               height: 40,
@@ -232,13 +241,13 @@ class GameScreen extends StatelessWidget {
     );
   }
 
-  Widget submitButton(Size size) {
+  Widget submitButton(Size size, context) {
     return SizedBox(
       height: size.height / 11,
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          _appCtr.ratingSubmit(game.id);
+          _appCtr.ratingSubmit(game.id, context);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: colorPrimary,
